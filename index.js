@@ -10,6 +10,11 @@ const app = express();
 //4.Directorio público
 app.use(express.static("public"));
 
+//Lectura y parseo del body. Pasamos todas las peticiones por el siguiente middleware
+//las peticiones que vienen en formato json las procesa aqui y se extrae su contenido
+
+app.use(express.json())
+
 //3.Creación rutas: me lo llevo a carpeta routes porque voy a tener mas de una ruta
 
 //4.Especificar la ruta en la que quiero que esten habilitados los endpoints que voy a crear
