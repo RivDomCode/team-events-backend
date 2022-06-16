@@ -1,37 +1,28 @@
 const { response } = require('express');
 const {validationResult} = require('express-validator');
+const User = require("../models/User");
 
-const createUser = (req, res = response) => {
+const createUser = async(req, res = response) => {
     //req es la petición, aqui viene lo que pide el usuario
     // console.log(req.body);
 
-    const { name,email,password } = req.body;
-
-    //validación para que el nombre sea mayor de 4 caracteres y se mete el status 400,
-    //que es una bad request por parte del usuario para que devuelva ese status
-    // if( name.length < 4 ) {
-    //     return res.status( 400 ).json({
-    //         ok:false,
-    //         msg: "name must be longer than 4 characters"
-    //     })
-    // }
-
-    const errors = validationResult(req);
-    //validacion si errors no está vacio, quiere decir que hay un error
-    if( !errors.isEmpty()) {
-        return res.status(400).json({
+    // const { name,email,password } = req.body;
+    try {
+        const user = new User(req.body); //creamos una nueva instancia del modelo User que hemos importado
+        //guardar en DB
+        await user.save();
+    
+        res.status(201).json({
+            ok: true,
+            msg: "new",
+        })
+    } catch (error) {
+        res.status(500).json({
             ok:false,
-            errors: errors.mapped()
+            msg:"Please talk to administrator"
         })
     }
 
-    res.status(201).json({
-        ok: true,
-        msg: "new",
-        name,
-        email,
-        password
-    })
 }
 
 const loginUser = (req, res) => {
