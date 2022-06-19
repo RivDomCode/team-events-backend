@@ -6,15 +6,27 @@ const createUser = async(req, res = response) => {
     //req es la petición, aqui viene lo que pide el usuario
     // console.log(req.body);
 
-    // const { name,email,password } = req.body;
+    const { email,password } = req.body;
     try {
-        const user = new User(req.body); //creamos una nueva instancia del modelo User que hemos importado
+        //validación para ver si el email está ya registrado
+        //usamos la funcion findOne del modelo user pasndo el email que viene
+        //en la request
+        let user = await User.findOne( {email} );
+        if (user) {
+            return res.status(400).json({
+                ok:false,
+                msg:"An user with this email already exists"
+            })
+        }
+
+         user = new User(req.body); //creamos una nueva instancia del modelo User que hemos importado
         //guardar en DB
         await user.save();
-    
+
         res.status(201).json({
             ok: true,
-            msg: "new",
+            uid: user.id,
+            name: user.name
         })
     } catch (error) {
         res.status(500).json({
