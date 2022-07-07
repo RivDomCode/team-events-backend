@@ -27,6 +27,8 @@ app.use(express.json())
 
 //4.Especificar la ruta en la que quiero que esten habilitados los endpoints que voy a crear
 app.use('/api/auth', require('./routes/auth')); //ruta y archivo
+//Ruta del CRUD de los eventos
+app.use('/api/events', require('./routes/events'));
 
 
 //2.Escuchar peticiones

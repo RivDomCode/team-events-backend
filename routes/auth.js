@@ -7,7 +7,7 @@ const router = Router();  //congif de router
 
 const { createUser, loginUser, renewToken} = require('../controllers/auth');
 const { fieldsValidator } = require('../middlewares/fields-validator');
-const { valiteJWT } = require('../middlewares/validate-jwt');
+const { validateJWT } = require('../middlewares/validate-jwt');
 
 //Crear un nuevo usuario
 router.post(
@@ -32,6 +32,6 @@ router.post('/',
             loginUser);
 
 //renovar el token
-router.get('/renew',valiteJWT, renewToken)
+router.get('/renew',validateJWT, renewToken)
 
 module.exports = router;

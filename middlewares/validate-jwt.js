@@ -1,7 +1,7 @@
 const { response } = require('express');
 const jwt = require('jsonwebtoken');
 
-const valiteJWT = ( req, res = response, next) => {
+const validateJWT = ( req, res = response, next) => {
     //como obtener el token: lo voy a pedir x-token en los headers (postman)
     const token = req.header('x-token');
     //Hacemos las validaciones
@@ -37,4 +37,4 @@ const valiteJWT = ( req, res = response, next) => {
     next();
 }
 
-module.exports = { valiteJWT }
+module.exports = { validateJWT }
