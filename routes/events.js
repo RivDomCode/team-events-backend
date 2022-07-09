@@ -28,7 +28,7 @@ router.post(
     createEvent )
 
 // Actualizar un evento
-router.post("/:id",updateEvent)
+router.put("/:id",updateEvent)
 
 //Borrar un evento
 router.delete("/:id",deleteEvent)
