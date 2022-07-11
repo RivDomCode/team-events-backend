@@ -22,7 +22,7 @@ const createEvent = async (req, res=response) => {
 
         const savedEvent = await event.save();
 
-        res.json({
+        return  res.json({
             ok:true,
             event: savedEvent
         })
@@ -30,16 +30,12 @@ const createEvent = async (req, res=response) => {
     } catch (error) {
         console.log(error)
 
-        res.status(500).json({
+        return res.status(500).json({
             ok:false,
             msg: "talk to admin"
         })
     }
 
-    return res.status(201).json({
-        ok:true,
-        msg:"event created"
-    })
 }
 
 const updateEvent = async (req, res=response) => {
